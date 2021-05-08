@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.ws.rs.Consumes; 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path; 
 import javax.ws.rs.Produces; 
 import javax.ws.rs.core.MediaType; 
@@ -23,8 +24,20 @@ import java.sql.CallableStatement;
 
 public class ExecuteInsertUser {
 
-	 @POST
+	 @GET
 	public  void insertUser()  {
+		 
+		 try {
+			    //Class.forName("com.mysql.jdbc.Driver");
+				Class.forName("com.mysql.cj.jdbc.Driver");
+			} 
+			catch (ClassNotFoundException e) {
+			    // TODO Auto-generated catch block
+			    e.printStackTrace();
+			    System.out.println("Error en class for name: " + e.getMessage());
+			} 
+		 
+		 
 		
 		 try {
 			 Connection connection = null;
@@ -32,8 +45,8 @@ public class ExecuteInsertUser {
 			 
 			 
 			 CallableStatement cStmt = connection.prepareCall("{call insert_user_procedure(?,?)}"); 
-			 cStmt.setString( "name_user", "victor333333");  
-			 cStmt.setString("password_user", "ilerna");  
+			 cStmt.setString(1, "victor333333");  
+			 cStmt.setString(2, "ilerna");  
 			 
 			 cStmt.execute();   
 		
