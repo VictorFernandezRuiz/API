@@ -25,18 +25,16 @@ import java.sql.CallableStatement;
 @Produces(MediaType.APPLICATION_JSON) 
 @Consumes(MediaType.APPLICATION_JSON)    
 
-public class ExecuteInsertUser {
-	
-
+public class ExecuteGetList {
 
 	 @GET
-	 @Path("{name_user}/{password_user}")
-	public  Response insertUser(
-			@PathParam("name_user")String name_user, 
-			@PathParam("password_user")String password_user ) {  
+	 @Path("{}")
+	public  Response getList(
+			@PathParam("")String name_product,
+		 ) {  
 		 
-		
 		 String resultadoInsert="";
+		   
 
 		 try {
 			  
@@ -54,9 +52,9 @@ public class ExecuteInsertUser {
 			 connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/MyAppDatabase","root","armablanca");
 			 
 			 
-			 CallableStatement cStmt = connection.prepareCall("{call insert_user_procedure(?,?)}"); 
-			 cStmt.setString(1, name_user);  
-			 cStmt.setString(2, password_user);  
+			 CallableStatement cStmt = connection.prepareCall("{call insert_product_procedure(?,?)}"); 
+			 cStmt.setString(1, name_product);  
+		 
 			 
 			 cStmt.execute();   
 			 
@@ -72,8 +70,7 @@ public class ExecuteInsertUser {
 		
 		if (resultadoInsert != "error") {
 			
-			return  createUserList(name_user);
-			  
+			   return Response.ok("ok",MediaType.APPLICATION_JSON).build();   
 			
 		}
 		else {
@@ -81,32 +78,9 @@ public class ExecuteInsertUser {
 		}
 	
 		
-
-		
 	}
 	
-	public Response createUserList (String name_user) {
-		
-		 try {
-			 Connection connection = null;
-			 connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/MyAppDatabase","root","armablanca");
-			 
-			 
-			 CallableStatement cStmt = connection.prepareCall("{call insert_userList_procedure(?)}"); 
-			 cStmt.setString("name_user", name_user);
-			 cStmt.execute();   
-			 
-		   
-		
-		 } 
-		 catch (SQLException ex) {
-	            System.out.println("Error: " + ex.getMessage());
-	        
-	       	 return Response.ok("error Insert UserList",MediaType.APPLICATION_JSON).build();   
-	}
-		 return Response.ok("ok",MediaType.APPLICATION_JSON).build();   
-		
-	}
+	
 	
 	
 
