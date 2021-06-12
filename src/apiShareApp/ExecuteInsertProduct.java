@@ -1,4 +1,4 @@
-package apiz;
+package apiShareApp;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -21,16 +21,17 @@ import javax.ws.rs.core.Response;
 import java.sql.CallableStatement;  
 
 
-@Path("/ExecuteInsertUser") 
+@Path("/ExecuteInsertProduct") 
 @Produces(MediaType.APPLICATION_JSON) 
 @Consumes(MediaType.APPLICATION_JSON)    
 
-public class ExecuteInsertFirstAmount {
+public class ExecuteInsertProduct {
 
 	 @GET
-	 @Path("{amount}")
-	public  Response insertFirstAmount(
-			@PathParam("amount")String amount) {  
+	 @Path("{name_product}/{name_user}")
+	public  Response insertProduct(
+			@PathParam("name_product")String name_product,
+			@PathParam("name_user") String name_user) {  
 		 
 		 String resultadoInsert="";
 		   
@@ -51,8 +52,9 @@ public class ExecuteInsertFirstAmount {
 			 connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/MyAppDatabase","root","armablanca");
 			 
 			 
-			 CallableStatement cStmt = connection.prepareCall("{call insert_first_amount(?)}"); 
-			 cStmt.setString(1, amount);  
+			 CallableStatement cStmt = connection.prepareCall("{call insert_product_procedure(?,?)}"); 
+			 cStmt.setString(1, name_product);  
+			 cStmt.setString(2, name_user);  
 		 
 			 
 			 cStmt.execute();   

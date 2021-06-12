@@ -1,4 +1,4 @@
-package apiz;
+package apiShareApp;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
