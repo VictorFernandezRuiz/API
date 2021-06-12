@@ -21,16 +21,16 @@ import javax.ws.rs.core.Response;
 import java.sql.CallableStatement;  
 
 
-@Path("/ExecuteInsertUser") 
+@Path("/ExecuteGetList") 
 @Produces(MediaType.APPLICATION_JSON) 
 @Consumes(MediaType.APPLICATION_JSON)    
 
 public class ExecuteGetList {
 
 	 @GET
-	 @Path("{}")
+	 @Path("{a}")
 	public  Response getList(
-			@PathParam("")String name_product,
+			@PathParam("a")String name_product
 		 ) {  
 		 
 		 String resultadoInsert="";

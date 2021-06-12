@@ -21,17 +21,16 @@ import javax.ws.rs.core.Response;
 import java.sql.CallableStatement;  
 
 
-@Path("/ExecuteInsertProduct") 
+@Path("/ExecuteInsertUser") 
 @Produces(MediaType.APPLICATION_JSON) 
 @Consumes(MediaType.APPLICATION_JSON)    
 
-public class ExecuteInsertProduct {
+public class ExecuteInsertFirstAmount {
 
 	 @GET
-	 @Path("{name_product}/{name_user}")
-	public  Response insertProduct(
-			@PathParam("name_product")String name_product,
-			@PathParam("name_user") String name_user) {  
+	 @Path("{amount}")
+	public  Response insertFirstAmount(
+			@PathParam("amount")String amount) {  
 		 
 		 String resultadoInsert="";
 		   
@@ -52,8 +51,8 @@ public class ExecuteInsertProduct {
 			 connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/MyAppDatabase","root","armablanca");
 			 
 			 
-			 CallableStatement cStmt = connection.prepareCall("{call insert_product_procedure(?,?)}"); 
-			 cStmt.setString(1, name_product);  
+			 CallableStatement cStmt = connection.prepareCall("{call insert_first_amount(?)}"); 
+			 cStmt.setString(1, amount);  
 		 
 			 
 			 cStmt.execute();   

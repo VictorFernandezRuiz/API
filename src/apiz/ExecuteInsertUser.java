@@ -54,7 +54,7 @@ public class ExecuteInsertUser {
 			 connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/MyAppDatabase","root","armablanca");
 			 
 			 
-			 CallableStatement cStmt = connection.prepareCall("{call insert_user_procedure(?,?)}"); 
+			 CallableStatement cStmt = connection.prepareCall("{call insert_user_procedure_andList(?,?)}"); 
 			 cStmt.setString(1, name_user);  
 			 cStmt.setString(2, password_user);  
 			 
@@ -72,7 +72,9 @@ public class ExecuteInsertUser {
 		
 		if (resultadoInsert != "error") {
 			
-			return  createUserList(name_user);
+		//	return  createUserList(name_user);
+			 return Response.ok("ok",MediaType.APPLICATION_JSON).build();  
+			
 			  
 			
 		}
@@ -85,14 +87,14 @@ public class ExecuteInsertUser {
 		
 	}
 	
-	public Response createUserList (String name_user) {
+	/* public Response createUserList (String name_user) {
 		
 		 try {
 			 Connection connection = null;
 			 connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/MyAppDatabase","root","armablanca");
 			 
 			 
-			 CallableStatement cStmt = connection.prepareCall("{call insert_userList_procedure(?)}"); 
+			 CallableStatement cStmt = connection.prepareCall("{call insertar_list(?)}"); 
 			 cStmt.setString("name_user", name_user);
 			 cStmt.execute();   
 			 
@@ -107,7 +109,7 @@ public class ExecuteInsertUser {
 		 return Response.ok("ok",MediaType.APPLICATION_JSON).build();   
 		
 	}
-	
+	*/
 	
 
 	
